@@ -25,6 +25,9 @@ async function run() {
         const eventsdatabase = client.db("loyaltyEvents");
         const eventsCollection = eventsdatabase.collection("events");
 
+        const universitydatabase = client.db("loyaltyUniversity");
+        const universityCollection = universitydatabase.collection("university");
+
         // GET API FOR BOOKINGS
         app.get('/bookings', async (req, res) => {
             const cursor = bookingCollection.find({})
@@ -40,6 +43,11 @@ async function run() {
         // GET API FOR Event
         app.get('/events', async (req, res) => {
             const cursor = eventsCollection.find({})
+            const allBookings = await cursor.toArray();
+            res.send(allBookings);
+        })
+        app.get('/university', async (req, res) => {
+            const cursor = universityCollection.find({})
             const allBookings = await cursor.toArray();
             res.send(allBookings);
         })
