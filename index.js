@@ -51,6 +51,13 @@ async function run() {
             const allBookings = await cursor.toArray();
             res.send(allBookings);
         })
+        app.get('/university/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await universityCollection.findOne(query)
+
+            res.send(result);
+        })
         // POST API FOR BOOKINGS
         app.post('/bookings', async (req, res) => {
             const bookings = req.body
@@ -116,3 +123,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port`, port);
 })
+// Export the Express API
+module.exports = app;
